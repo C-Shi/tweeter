@@ -1,4 +1,5 @@
 
+// when append text, always use .text() or DOM createTextNode() function to avoid XSS
 function createHeader (tweetData) {
     // construct header
     const $avatar = $("<img />").attr("src", tweetData.user.avatars.small);
@@ -16,7 +17,7 @@ function createTweetBody (tweetData) {
     return $body;
 }
 
-// construct footer
+// construct footerc
 function createFooter (tweetData) {
   const $flag = $("<i />").addClass("fas fa-flag");
   const $retweet = $("<i />").addClass("fas fa-retweet");
