@@ -8,7 +8,14 @@ $(document).ready(function(){
   */
   $('.new-tweet form textarea').on('keyup', function(){
     const left = 140 - $(this).val().length;
-    $('.new-tweet .counter').text(left);
+    const counter = $(this).nextAll('.counter');
+    counter.text(left);
+    // add & remove red color based on length of text
+    if (left < 0){
+      counter.addClass('red');
+    } else{
+      counter.removeClass('red');
+    }
   })
   //  when complete, add a fallback function in case user copy tweets using mouse
 })
