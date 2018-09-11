@@ -30,8 +30,10 @@ $(document).ready(function(){
         // in the object, specify the method and what data to send
         method: 'POST',
         data: data,
-      }).done(function(){
-        loadTweets(); // this is not good b/c we are re-rendering the entire database, will replace in the future
+        // tweet is available because server side post request send the tweets info back
+      }).done(function(tweet){
+        // rednerTweets take an array, when passing [tweet] instead of tweet
+        renderTweets([tweet]);
       })
       // No Else If because invalided post requestd will be rejected and handled by formValidator function
     } // end if  
@@ -39,6 +41,7 @@ $(document).ready(function(){
 
   loadTweets(); // on document ready, load all tweets from database
 
+  // form validator function, passing actuall tweet info as string, return true if validate
   function formValidator(tweet){
     if (!tweet) {
       alert("Tweets cannot be blank");
