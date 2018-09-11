@@ -64,3 +64,8 @@ article.tweet:hover footer .likes {
   display: block;
   flex: 1;
 }
+
+article.tweet header img {
+  height: 30px;
+  float:left;
+}
