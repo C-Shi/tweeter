@@ -36,7 +36,8 @@ module.exports = function(DataHelpers) {
       if (err) {
         res.status(500).json({ error: err.message });
       } else {
-        res.status(201).send();
+        // immediate send tweet back so front-end js can update DOM immediately
+        res.status(201).send(tweet);
       }
     });
   });
