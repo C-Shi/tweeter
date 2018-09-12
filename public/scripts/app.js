@@ -34,8 +34,9 @@ $(document).ready(function(){
       }).done(function(tweet){
         // rednerTweets take an array, when passing [tweet] instead of tweet
         renderTweets([tweet]);
-        // when successfully post, clear out textarea
+        // when successfully post, clear out textarea and hide the tweet area
         $(".new-tweet textarea").val("");
+        $(".new-tweet").hide();
       })
       // No Else If because invalided post requestd will be rejected and handled by formValidator function
     } // end if  
@@ -45,13 +46,24 @@ $(document).ready(function(){
 
   // form validator function, passing actuall tweet info as string, return true if validate
   function formValidator(tweet){
+    const $error = $(".new-tweet .error")
+    const empty = "Sorry! Tweets cannot be blank";
+    const long = "Sorry! Tweets should be less than 140 characters"
     if (!tweet) {
-      alert("Tweets cannot be blank");
+      // check if error message is showing, needs to hide first
+      if ($error.css('display') !== 'none'){
+        $($error).slideUp();
+      }
+      $error.text(empty).slideDown();
       return false;
     } else if (tweet.length > 140) {
-      alert("Tweets should be less than 140 character");
+      if ($error.css('display') !== 'none'){
+        $($error).slideUp();
+      }
+      $error.text(long).slideDown();
       return false;
     }
+    $error.text("").hide();
     return true;
   }
 
