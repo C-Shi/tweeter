@@ -7,6 +7,8 @@ $(document).ready(function(){
     5. another possible solution is to use HTML5 input event  --> But not supported in Opera Mini
   */
   $('.new-tweet form textarea').on('keyup', function(){
+    // hide error message if it shows
+    $("p.error").slideUp();
     const left = 140 - $(this).val().length;
     const counter = $(this).nextAll('.counter');
     counter.text(left);

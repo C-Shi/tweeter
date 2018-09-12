@@ -22,7 +22,7 @@ function createFooter (tweetData) {
   const $flag = $("<i />").addClass("fas fa-flag");
   const $retweet = $("<i />").addClass("fas fa-retweet");
   const $like = $("<i />").addClass("far fa-heart");
-  const $divTime = $("<div />").addClass("tweet-time").text(tweetData.created_at);
+  const $divTime = $("<div />").addClass("tweet-time").text(Date(tweetData.created_at));
   const $divLike = $("<div />").addClass("likes").append($flag, $retweet, $like);
   const $footer = $("<footer />").append($divTime, $divLike);
 
