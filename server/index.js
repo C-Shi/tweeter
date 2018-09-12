@@ -8,9 +8,28 @@ const bodyParser    = require("body-parser");
 const app           = express();
 const { MongoClient } = require('mongodb');
 const MONGODB_URI = 'mongodb://localhost:27017/tweeter';
+const sassMiddleware = require('node-sass-middleware');
+const path = require('path');
+
+// setting
+const STATIC_DIR = path.join(__dirname, "../public");
+const SCSS_DIR = path.join(STATIC_DIR, 'scss');
+const STYLE_DIR = path.join(STATIC_DIR, 'styles');
+
+
+app.use(sassMiddleware({
+  /* Options */
+  src: SCSS_DIR, // where your scss file stay
+  dest: STYLE_DIR,   // where your want to output your style.css
+  debug: true,
+  outputStyle: 'compressed',
+  prefix:  '/styles/'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(STATIC_DIR));
+// app.use('/public/scss', express.static(path.join(__dirname, 'public')));
+// app.use(express.static("public"));
 
 // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");

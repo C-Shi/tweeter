@@ -7,22 +7,22 @@
   border-radius: 10px;
   padding: 10px;
   display: none;
-}
 
-.new-tweet h2 {
-  margin-top: 0;
-  border-bottom: 1px solid black;
-}
+  h2 {
+    margin-top: 0;
+    border-bottom: 1px solid black;
+  }
 
-.new-tweet span {
-  float: right;
-}
+  span {
+    float: right;
+  }
 
-.new-tweet textarea {
-  margin-bottom: 10px;
-  min-height: 60px;
-  display: block;
-  width: 100%;
+  textarea {
+    margin-bottom: 10px;
+    min-height: 60px;
+    display: block;
+    width: 100%;
+  }
 }
 
 .red {
