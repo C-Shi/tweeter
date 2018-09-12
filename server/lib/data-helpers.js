@@ -1,5 +1,5 @@
 "use strict";
-
+const moment = require('moment');
 // Simulates the kind of delay we see with network or filesystem operations
 const simulateDelay = require("./util/simulate-delay");
 
@@ -19,6 +19,10 @@ module.exports = function makeDataHelpers(db) {
       const sortNewestFirst = (a, b) => a.created_at - b.created_at;
       db.collection('tweets').find().toArray((err, tweets) => {
         if (err) throw err;
+        // convert search results' date into date from now
+        tweets.forEach((tweet) => {
+          tweet.created_at = moment(tweet.created_at).fromNow();
+        })
         callback(err, tweets.sort(sortNewestFirst));
       })
     },
