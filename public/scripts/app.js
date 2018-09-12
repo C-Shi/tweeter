@@ -34,6 +34,8 @@ $(document).ready(function(){
       }).done(function(tweet){
         // rednerTweets take an array, when passing [tweet] instead of tweet
         renderTweets([tweet]);
+        // when successfully post, clear out textarea
+        $(".new-tweet textarea").val("");
       })
       // No Else If because invalided post requestd will be rejected and handled by formValidator function
     } // end if  
