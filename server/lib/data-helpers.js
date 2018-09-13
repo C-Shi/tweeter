@@ -22,14 +22,16 @@ module.exports = function makeDataHelpers(db) {
     },
 
     // update like status
-    likeTweet: function(id, isLike, callback) {
+    likeTweet: function(id, data, callback) {
       // id is the string generated as unique identifier
       // isLike is the status of liking
-      db.collection("tweets").findAndModify({'id': id}, [['id', 'asc']] ,{ $set: {'liked': isLike} }, 
+      let inc = JSON.parse(data.isLike) ? 1 : -1;
+      db.collection("tweets").findAndModify({'id': id}, [['id', 'asc']] ,{ $set: {'liked': JSON.parse(data.isLike)}, $inc: {'likeCount': inc} }, 
       function(err, tweet){
-        return ;
+        if (err) throw err;
+        callback(null, tweet);
       })
-    }, // update tweet into database
+    }, 
 
     generatedRandomTweetsId : function(){
       const lib = 'qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890';
