@@ -23,7 +23,6 @@ function createFooter (tweetData) {
 
   const likeStatus = tweetData.liked ? "fas fa-heart" : "far fa-heart";
   const tweetId = tweetData.id;
-  console.log(tweetData.id);
   const $like = $("<i />").addClass(likeStatus).attr('data-id', tweetId);
   const $count = $("<span />").text(" " + tweetData.likeCount);
 
