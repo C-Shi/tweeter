@@ -1,7 +1,4 @@
 "use strict";
-const moment = require('moment');
-// Simulates the kind of delay we see with network or filesystem operations
-const simulateDelay = require("./util/simulate-delay");
 
 // Defines helper functions for saving and getting tweets, using the database `db`
 module.exports = function makeDataHelpers(db) {
@@ -20,9 +17,6 @@ module.exports = function makeDataHelpers(db) {
       db.collection('tweets').find().toArray((err, tweets) => {
         if (err) throw err;
         // convert search results' date into date from now
-        tweets.forEach((tweet) => {
-          tweet.created_at = moment(tweet.created_at).fromNow();
-        })
         callback(err, tweets.sort(sortNewestFirst));
       })
     },
