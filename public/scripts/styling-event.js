@@ -8,5 +8,15 @@ $(document).ready(function(){
     });
   })
 
-
+  // like action, which will change the fontawesome and also send an ajax request
+  $('#all-tweets').on('click', 'i[data-id]', function(){
+    const isLike = (!$(this).hasClass('fas')).toString();
+    const data = {isLike: isLike};
+    $(this).toggleClass('fas far');
+    $.ajax({
+      url: "/tweets/" + $(this).data('id'),
+      method: 'PUT', 
+      data: data
+    });
+  })
 })

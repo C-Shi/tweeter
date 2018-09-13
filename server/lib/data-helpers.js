@@ -20,5 +20,25 @@ module.exports = function makeDataHelpers(db) {
         callback(err, tweets.sort(sortNewestFirst));
       })
     },
+
+    // update like status
+    likeTweet: function(id, isLike, callback) {
+      // id is the string generated as unique identifier
+      // isLike is the status of liking
+      db.collection("tweets").findAndModify({'id': id}, [['id', 'asc']] ,{ $set: {'liked': isLike} }, 
+      function(err, tweet){
+        return ;
+      })
+    }, // update tweet into database
+
+    generatedRandomTweetsId : function(){
+      const lib = 'qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890';
+      let id = '';
+      for (let i = 0; i < 6; i++){
+        const index = Math.floor(Math.random() * lib.length);
+        id += lib[index];
+      }
+      return id;
+    }
   }
 }

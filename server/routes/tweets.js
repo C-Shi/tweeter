@@ -25,11 +25,13 @@ module.exports = function(DataHelpers) {
 
     const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
     const tweet = {
+      id: DataHelpers.generatedRandomTweetsId(),
       user: user,
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      created_at: Date.now(),
+      liked: false
     };
 
     DataHelpers.saveTweet(tweet, (err) => {
@@ -41,6 +43,18 @@ module.exports = function(DataHelpers) {
       }
     });
   });
+
+  tweetsRoutes.put("/:id", function(req, res) {
+    const tweetId = req.params.id;
+    const isLike = JSON.parse(req.body.isLike);
+    DataHelpers.likeTweet(tweetId, isLike, (err) => {
+      if (err){
+        res.status(500).json({error: err.message});
+      }else {
+        res.status(200).send();
+      }
+    })
+  })
 
   return tweetsRoutes;
 

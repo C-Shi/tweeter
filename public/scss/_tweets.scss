@@ -49,6 +49,10 @@ article.tweet {
       display:none;
       color:#4fdf7d;
       text-align: right;
+
+      [data-id] {
+        color: red;
+      }
     }
   }
 
