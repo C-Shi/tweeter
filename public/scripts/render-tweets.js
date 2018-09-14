@@ -26,7 +26,7 @@ function createFooter (tweetData) {
   const $like = $("<i />").addClass(likeStatus).attr('data-id', tweetId);
   const $count = $("<span />").text(" " + tweetData.likeCount);
 
-  const $divTime = $("<div />").addClass("tweet-time").text(new Date(tweetData.created_at).toLocaleString());
+  const $divTime = $("<div />").addClass("tweet-time").text(tweetData.created_at);
   const $divLike = $("<div />").addClass("likes").append($flag, $retweet, $like, $count);
   const $footer = $("<footer />").append($divTime, $divLike);
 
