@@ -2,6 +2,7 @@
 
 const express = require('express');
 const userHelper = require('../lib/util/user-helper');
+const moment = require('moment');
 
 
 const tweetsRoutes = express.Router();
@@ -43,6 +44,8 @@ module.exports = function (DataHelpers) {
             res.status(500).json({ error: error.message });
           } else {
             // immediate send tweet back so front-end js can update DOM immediately
+            tweet.created_at = moment(tweet.created_at).fromNow();
+            oldTweet.created_at = moment(oldTweet.created_at).fromNow();
             const tweets = { tweet, oldTweet };
             res.status(201).send(tweets);
           }
@@ -67,6 +70,7 @@ module.exports = function (DataHelpers) {
           res.status(500).json({ error: err.message });
         } else {
           // immediate send tweet back so front-end js can update DOM immediately
+          tweet.created_at = moment(tweet.created_at).fromNow();
           const tweets = { tweet };
           res.status(201).send(tweets);
         }
