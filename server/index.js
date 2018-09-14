@@ -1,14 +1,14 @@
 
 // Basic express setup:
-
-const PORT = 8080;
+require('dotenv').config()
+const PORT = process.env.PORT || 8080;
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = 'mongodb://localhost:27017/tweeter';
+const MONGODB_URI = process.env.DB_URL || 'mongodb://localhost:27017/tweeter';
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
 
