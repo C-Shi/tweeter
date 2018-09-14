@@ -1,10 +1,15 @@
+%border-radius {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
 .new-tweet {
   margin: 0;
   background-color: #eee;
   border: 1px solid white;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  @extend %border-radius;
+  
   padding: 10px;
   display: none;
 
@@ -22,6 +27,17 @@
     min-height: 60px;
     display: block;
     width: 100%;
+  }
+
+  button {
+    @extend %border-radius;
+    transition: font-size .5s, color .5s, background-color .5s;
+  }
+
+  button:hover {
+    font-size: 1.5em;
+    color: #fff;
+    background-color: #444;
   }
 }
 
