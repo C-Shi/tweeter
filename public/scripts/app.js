@@ -5,11 +5,8 @@
  */
 
 // calling renderTweets function which exists in render-tweets.js file
-$(document).ready(function(){
-  loadTweets(); // on document ready, load all tweets from database
+$(document).ready(function() {
+  loadTweets(); 
+  // on document ready, load all tweets from database
 
 }) // end of document ready func
-
-
- 
-
