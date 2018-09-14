@@ -11,6 +11,7 @@ $(document).ready(function(){
   // ajax call for likeing / upliking event ****************************************
   // like action, which will change the fontawesome and also send an ajax request
   $('#all-tweets').on('click', 'i[data-id]', function(){
+    console.log($(this).data('id'));
     const isLike = (!$(this).hasClass('fas')).toString();
     const likeCount = ($(this).next().text());
     const data = {isLike: isLike, likeCount: likeCount};
@@ -19,8 +20,8 @@ $(document).ready(function(){
       method: 'PUT', 
       data: data
     }).success(function(tweet) {
-      $('.likes i[data-id]').toggleClass('fas far');
-      $('.likes span').text(tweet.value.likeCount); 
+      $(`.likes i[data-id=${tweet.value.id}]`).toggleClass('fas far');
+      $(`.likes i[data-id=${tweet.value.id}]`).next('span').text(tweet.value.likeCount); 
     });
   });
 
@@ -58,6 +59,18 @@ $(document).ready(function(){
         // No Else If because invalided post requestd will be rejected and handled by formValidator function
       } // end if  
     });
+  
+  // repost feature
+  $('#all-tweets').on('click', 'i.fa-retweet', function(){
+    const tweet = {text: $(this).closest('footer').prev().text()};
+
+    $.ajax('/tweets', 
+    {method: 'POST',
+     data: tweet}).done(function(tweet){
+       console.log(tweet);
+       renderTweets([tweet]);
+     })
+  }) // end of repost
 })
 
  // form validator function, passing actuall tweet info as string, return true if validate

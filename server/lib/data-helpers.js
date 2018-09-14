@@ -31,6 +31,7 @@ module.exports = function makeDataHelpers(db) {
       { $set: {'liked': JSON.parse(data.isLike)}, $inc: {'likeCount': inc} },
       {new: true}, // update will return the old data unless you tell them to return new data 
       function(err, tweet){
+        console.log(tweet);
         if (err) throw err;
         callback(null, tweet);
       })
