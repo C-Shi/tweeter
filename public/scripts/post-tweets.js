@@ -50,7 +50,7 @@ $(document).ready(function(){
           // tweet is available because server side post request send the tweets info back
         }).done(function(tweet){
           // rednerTweets take an array, when passing [tweet] instead of tweet
-          renderTweets([tweet]);
+          renderTweets([tweet.tweet]);
           // when successfully post, clear out textarea and hide the tweet area
           $(".new-tweet textarea").val("");
           $(".new-tweet").hide();
@@ -62,13 +62,20 @@ $(document).ready(function(){
   
   // repost feature
   $('#all-tweets').on('click', 'i.fa-retweet', function(){
-    const tweet = {text: $(this).closest('footer').prev().text()};
+    const tweet = {
+      id: $(this).nextAll('[data-id]').data('id'),
+      text: $(this).closest('footer').prev().text(),
+      repost: true,
+    };
 
     $.ajax('/tweets', 
     {method: 'POST',
      data: tweet}).done(function(tweet){
-       console.log(tweet);
-       renderTweets([tweet]);
+       // when received, find old tweet and update the repost number
+       const oldTweetId = tweet.oldTweet.value.id;
+       const $oldTweet = $(`#all-tweets .tweet i[data-id=${oldTweetId}]`);
+       $oldTweet.prev().text(tweet.oldTweet.value.repost);
+       renderTweets([tweet.tweet]);
      })
   }) // end of repost
 })

@@ -24,26 +24,57 @@ module.exports = function(DataHelpers) {
       return;
     }
 
-    const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
-    const tweet = {
-      id: DataHelpers.generatedRandomTweetsId(),
-      user: user,
-      content: {
-        text: req.body.text
-      },
-      created_at: Date.now(),
-      liked: false,
-      likeCount: 0
-    };
+    if (req.body.repost) {
+      DataHelpers.repostTweet(req.body.id, function(err, oldTweet){
+        const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
+        const tweet = {
+          id: DataHelpers.generatedRandomTweetsId(),
+          user: user,
+          content: {
+            text: req.body.text
+          },
+          created_at: Date.now(),
+          liked: false,
+          likeCount: 0,
+          repost: 0,
+        };
 
-    DataHelpers.saveTweet(tweet, (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-      } else {
-        // immediate send tweet back so front-end js can update DOM immediately
-        res.status(201).send(tweet);
-      }
-    });
+        DataHelpers.saveTweet(tweet, (err) => {
+          if (err) {
+            res.status(500).json({ error: err.message });
+          } else {
+            // immediate send tweet back so front-end js can update DOM immediately
+            const tweets = {tweet, oldTweet};
+            res.status(201).send(tweets);
+          }
+        });
+      })
+    } else {
+      const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
+        const tweet = {
+          id: DataHelpers.generatedRandomTweetsId(),
+          user: user,
+          content: {
+            text: req.body.text
+          },
+          created_at: Date.now(),
+          liked: false,
+          likeCount: 0,
+          repost: 0,
+        };
+
+        DataHelpers.saveTweet(tweet, (err) => {
+          if (err) {
+            res.status(500).json({ error: err.message });
+          } else {
+            // immediate send tweet back so front-end js can update DOM immediately
+            const tweets = {tweet};
+            res.status(201).send(tweets);
+          }
+        });
+    }
+
+
   });
 
   tweetsRoutes.put("/:id", function(req, res) {
@@ -52,7 +83,6 @@ module.exports = function(DataHelpers) {
       if (err){
         res.status(500).json({error: err.message});
       }else {
-        console.log
         res.status(200).send(tweet);
       }
     })

@@ -20,6 +20,7 @@ function createTweetBody (tweetData) {
 function createFooter (tweetData) {
   const $flag = $("<i />").addClass("fas fa-flag");
   const $retweet = $("<i />").addClass("fas fa-retweet");
+  const $retweetCount = $("<span />").text(tweetData.repost + " ").addClass('retweet');
 
   const likeStatus = tweetData.liked ? "fas fa-heart" : "far fa-heart";
   const tweetId = tweetData.id;
@@ -27,7 +28,7 @@ function createFooter (tweetData) {
   const $count = $("<span />").text(" " + tweetData.likeCount);
 
   const $divTime = $("<div />").addClass("tweet-time").text(tweetData.created_at);
-  const $divLike = $("<div />").addClass("likes").append($flag, $retweet, $like, $count);
+  const $divLike = $("<div />").addClass("likes").append($flag, $retweet, $retweetCount, $like, $count);
   const $footer = $("<footer />").append($divTime, $divLike);
 
   return $footer;

@@ -41,6 +41,7 @@ article.tweet {
     border-top: 1px solid #ddd;
     padding: 10px;
 
+
     .tweet-time {
       width: 50%;
     }
@@ -56,6 +57,10 @@ article.tweet {
 
       span {
         color: red;
+      }
+      
+      span.retweet {
+        color: #4fdf7d
       }
     }
   }
