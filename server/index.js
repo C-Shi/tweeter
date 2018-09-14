@@ -56,6 +56,6 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   // Mount the tweets routes at the "/tweets" path prefix:
   app.use('/tweets', tweetsRoutes);
 
-  app.listen(PORT, () => {
+  app.listen(PORT, process.env.IP, () => {
   });
 });
